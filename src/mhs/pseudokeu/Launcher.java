@@ -38,7 +38,7 @@ import javax.swing.event.ChangeListener;
  * Main Game Frame
  *
  * @author Mark Sattolo
- * @version 8.1.2
+ * @version 9.0.2
  * @see JFrame
  */
 public class Launcher extends JFrame {
@@ -52,11 +52,12 @@ public class Launcher extends JFrame {
      * @see java.awt.event.ActionListener
      */
     class GameListener implements ActionListener {
-        private static final String strCHANGE_DIFFICULTY_CONFIRM = "Change Difficulty Confirmation",
-                        strEND_GAME_AND_SET_DIFFICULTY = "! End this game & set a NEW level of difficulty?",
-                        strEND_GAME_AND_ADD = "! End this game & ADD a new USER game?",
-                        strCLEAR_AND_SELECT = "! Clear ALL values & Select a Game?",
-                        strCLEAR_AND_LOAD = "! Clear ALL values & Load a NEW game?";
+        private static final String 
+              strCHANGE_DIFFICULTY_CONFIRM   = "Change Difficulty Confirmation",
+              strEND_GAME_AND_SET_DIFFICULTY = "! End this game & set a NEW level of difficulty?",
+              strEND_GAME_AND_ADD            = "! End this game & ADD a new USER game?",
+              strCLEAR_AND_SELECT            = "! Clear ALL values & Select a Game?",
+              strCLEAR_AND_LOAD              = "! Clear ALL values & Load a NEW game?";
 
         /**
          * Component (button, menu, etc) that was activated
@@ -103,7 +104,7 @@ public class Launcher extends JFrame {
                 logger.finer(event);
 
                 confirm = JOptionPane.showConfirmDialog(Launcher.this, "Reveal ONE currently Unknown value?", strHint,
-                                JOptionPane.YES_NO_OPTION);
+                                                        JOptionPane.YES_NO_OPTION);
                 if( confirm == 0 ) {
                     revealSquare();
                 }
@@ -122,7 +123,7 @@ public class Launcher extends JFrame {
             else if( source == exitMenuItem ) {
                 logger.fine(event);
                 confirm = JOptionPane.showConfirmDialog(Launcher.this, (strExitCap + ' ' + GAME_NAME + '?'), strExitCap + ' '
-                                + strConfirm, JOptionPane.YES_NO_OPTION);
+                                                        + strConfirm, JOptionPane.YES_NO_OPTION);
                 if( confirm == 0 ) {
                     halt();
                 }
@@ -137,7 +138,7 @@ public class Launcher extends JFrame {
                 if( (source == newGameButton) || (source == newGameMenuItem) ) {
                     if( isRunning() && grid.hasEntries() )
                         confirm = JOptionPane.showConfirmDialog(Launcher.this, strCLEAR_AND_LOAD,
-                                        strNewGame + ' ' + strConfirm, JOptionPane.YES_NO_OPTION);
+                                                                strNewGame + ' ' + strConfirm, JOptionPane.YES_NO_OPTION);
                     if( confirm == 0 ) {
                         if( isAddingGame() ) launchAddGameFrame(false);
 
@@ -147,9 +148,11 @@ public class Launcher extends JFrame {
                 // SELECT GAME
                 else if( source == selectGameMenuItem ) {
                     if( isAddingGame() && grid.hasEntries() )
-                        confirm = JOptionPane.showConfirmDialog(Launcher.this, strCLEAR_AND_SELECT,
+                        confirm = JOptionPane.showConfirmDialog(
+                                        Launcher.this, strCLEAR_AND_SELECT,
                                         strSelectGame.replace("...", " ").replace("a ", "") + strConfirm,
-                                        JOptionPane.YES_NO_OPTION);
+                                        JOptionPane.YES_NO_OPTION
+                                        );
                     if( confirm == 0 ) {
                         if( isAddingGame() ) launchAddGameFrame(false);
 
@@ -159,9 +162,11 @@ public class Launcher extends JFrame {
                 // ADD GAME
                 else if( source == addGameMenuItem ) {
                     if( isRunning() && grid.hasEntries() )
-                        confirm = JOptionPane.showConfirmDialog(Launcher.this, strEND_GAME_AND_ADD,
+                        confirm = JOptionPane.showConfirmDialog(
+                                        Launcher.this, strEND_GAME_AND_ADD,
                                         strAddGame.replace("...", " ").replace("a ", "") + strConfirm,
-                                        JOptionPane.YES_NO_OPTION);
+                                        JOptionPane.YES_NO_OPTION
+                                        );
                     if( confirm == 0 ) {
                         // make sure Loader is not still in the worker thread
                         if( !loadWorkerDone() ) return;
@@ -180,8 +185,10 @@ public class Launcher extends JFrame {
                 // CHOOSE DIFFICULTY LEVEL
                 else if( source == difficultyMenuItem ) {
                     if( isRunning() && grid.hasEntries() )
-                        confirm = JOptionPane.showConfirmDialog(Launcher.this, strEND_GAME_AND_SET_DIFFICULTY,
-                                        strCHANGE_DIFFICULTY_CONFIRM, JOptionPane.YES_NO_OPTION);
+                        confirm = JOptionPane.showConfirmDialog(
+                                        Launcher.this, strEND_GAME_AND_SET_DIFFICULTY,
+                                        strCHANGE_DIFFICULTY_CONFIRM, JOptionPane.YES_NO_OPTION
+                                        );
                     if( confirm == 0 ) {
                         if( isAddingGame() ) launchAddGameFrame(false);
 
@@ -227,8 +234,12 @@ public class Launcher extends JFrame {
         /** Just in case... */
         private static final long serialVersionUID = -7518248412658045164L;
 
-        static final String strSmall = "small", strMed = "Medium", strLarge = "LARGE", strTITLE = "Change Game Size",
-                        HTML_MSG = "<html><br><h1><font color=blue>Game Size:</font></h1></html>";
+        static final String 
+              strSmall = "small", 
+              strMed   = "Medium", 
+              strLarge = "LARGE", 
+              strTITLE = "Change Game Size",
+              HTML_MSG = "<html><br><h1><font color=blue>Game Size:</font></h1></html>";
 
         /** identify the source of action events */
         private Object source;
@@ -1254,7 +1265,7 @@ public class Launcher extends JFrame {
      * @param logLevel - initial Logging {@link Level} of this session
      * @param debugMode - enable debug actions
      */
-    public Launcher(String logLevel, boolean debugMode) {
+    public Launcher(boolean debugMode, String logLevel) {
         DEBUG = debugMode;
         System.out.println("\t\t >> " + (DEBUG ? "In" : "NOT in") + " DEBUG mode.");
 
@@ -1280,14 +1291,15 @@ public class Launcher extends JFrame {
     /* ======================================================================================================== 
                            #  M A I N  #
        ======================================================================================================== */
-
+    
     /**
      * @param args - the command line arguments
      */
     public static void main(final String args[]) {
         System.out.println("Main() STARTED ON " + Thread.currentThread());
-
+        
         SwingUtilities.invokeLater(new Runnable() {
+            boolean debug = true;
             public void run() {
                 try {
                     System.out.println("new Runnable.run() STARTED ON " + Thread.currentThread());
@@ -1302,16 +1314,20 @@ public class Launcher extends JFrame {
                 } catch( Exception e ) {
                     e.printStackTrace();
                 }
-
-                new Launcher((args.length > 0 ? args[0] : null), (args.length > 1 ? true : false)).go();
+                if(args.length > 0) {
+                  if(args[0].equalsIgnoreCase("prod")) {
+                    debug = false;
+                  }
+                }
+                new Launcher(debug, (args.length > 1 ? args[1] : Level.WARNING.getName())).go();
             }
         });
     }
-
+    
     // ===========================================================================================================
     // I N T E R F A C E
     // ===========================================================================================================
-
+    
     /**
      * See if the {@link Loader} thread has returned <br>
      * 
@@ -1322,12 +1338,12 @@ public class Launcher extends JFrame {
      */
     boolean loadWorkerDone() {
         if( gamesLoaded ) return true;
-
+        
         JOptionPane.showMessageDialog(this, strLoadDelay, strSolveDelay, JOptionPane.INFORMATION_MESSAGE);
         return false;
-
+        
     }// Launcher.loadWorkerDone()
-
+    
     /**
      * Toggle the {@link #solveTimer} to send SOLVE events <br>
      * - invoked by the <b>Solve</b> Button or Hot Key <br>
@@ -1346,10 +1362,10 @@ public class Launcher extends JFrame {
             if( !showConflicts ) setConflicts(true);
 
             if( autoSolveActive ) solveTimer.stop();
-
+            
             return;
         }
-
+        
         solveButton.setText(autoSolveActive ? strSolve : strStopSolve);
         autoSolveActive = !autoSolveActive;
 
@@ -1951,7 +1967,7 @@ public class Launcher extends JFrame {
         addGameMenuItem.setMnemonic(strAddGame.charAt(0));
         addGameMenuItem.addActionListener(listener);
 
-        exitMenuItem.setAccelerator(KeyStroke.getKeyStroke(KeyEvent.VK_X, InputEvent.ALT_MASK));
+        exitMenuItem.setAccelerator(KeyStroke.getKeyStroke(KeyEvent.VK_X, InputEvent.ALT_DOWN_MASK));
         exitMenuItem.setMnemonic(KeyEvent.VK_X);
         exitMenuItem.addActionListener(listener);
 
@@ -1970,7 +1986,7 @@ public class Launcher extends JFrame {
         solveDelayMenuItem.setMnemonic(strSolveDelay.charAt(10));
         solveDelayMenuItem.addActionListener(listener);
 
-        sizeMenuItem.setAccelerator(KeyStroke.getKeyStroke(KeyEvent.VK_Z, InputEvent.ALT_MASK));
+        sizeMenuItem.setAccelerator(KeyStroke.getKeyStroke(KeyEvent.VK_Z, InputEvent.ALT_DOWN_MASK));
         sizeMenuItem.setMnemonic(KeyEvent.VK_Z);
         sizeMenuItem.addActionListener(listener);
 
@@ -2937,7 +2953,7 @@ public class Launcher extends JFrame {
      *************************************************************************************************************/
 
     /** game text and version info */
-    static final String strGAME = "Game", PROJECT_NAME = "Pseudokeu ", GAME_NAME = PROJECT_NAME + strGAME,
+    static final String strGAME = "Game", PROJECT_NAME = "Pseudokeu", GAME_NAME = PROJECT_NAME + strGAME,
 
     // Start a new major number
     // OpenSUSE = 6, Ubuntu = 7 (Feb 2012), git = 8 (Mar 2014)

@@ -34,7 +34,7 @@ import java.util.logging.XMLFormatter;
  * Manage logging for the package
  * 
  * @author Mark Sattolo
- * @version 8.4
+ * @version 9.0.2
  */
 public class LogControl {
     /**
@@ -92,7 +92,7 @@ public class LogControl {
         // xml file handler
         try {
             xmlHandler = new FileHandler(LOG_SUBFOLDER + Launcher.PROJECT_NAME + LOG_ROLLOVER_SPEC + XML_LOGFILE_TYPE,
-                            LOGFILE_MAX_BYTES, MAX_NUM_LOG_FILES);
+                                         LOGFILE_MAX_BYTES, MAX_NUM_LOG_FILES);
             xmlHandler.setFormatter(new XMLFormatter());
         } catch( Exception e ) {
             System.err.println("xmlHandler exception: " + e);
@@ -102,7 +102,7 @@ public class LogControl {
         // text file handler
         try {
             textHandler = new FileHandler(LOG_SUBFOLDER + Launcher.PROJECT_NAME + LOG_ROLLOVER_SPEC + TEXT_LOGFILE_TYPE,
-                            LOGFILE_MAX_BYTES, MAX_NUM_LOG_FILES);
+                                          LOGFILE_MAX_BYTES, MAX_NUM_LOG_FILES);
             textHandler.setFormatter(new PskFormatter());
         } catch( Exception e ) {
             System.err.println("textHandler exception: " + e);
@@ -313,7 +313,7 @@ public class LogControl {
             Formatter f = h.getFormatter();
             Level l = h.getLevel();
             System.out.println("Handler " + h.getClass().getName() + " has Formatter '" + f.getClass().getName()
-                            + "' & Level = " + l.getName());
+                               + "' & Level = " + l.getName());
         }
     }// LogControl.loggerInfo()
 
@@ -331,7 +331,7 @@ public class LogControl {
     static final Level DEFAULT_LEVEL = Level.WARNING;
 
     /** default Log name parameter */
-    static final String LOG_SUBFOLDER = "logs/", LOG_ROLLOVER_SPEC = "%u-%g", XML_LOGFILE_TYPE = ".xml",
+    static final String LOG_SUBFOLDER = "logs/", LOG_ROLLOVER_SPEC = "_%u-%g", XML_LOGFILE_TYPE = ".xml",
                     TEXT_LOGFILE_TYPE = ".log";
 
     /** @see PskLogger */

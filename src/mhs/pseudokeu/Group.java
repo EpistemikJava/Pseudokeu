@@ -26,7 +26,7 @@ import java.util.logging.Level;
  * size {@link #gridLength}<br>
  * Each implemented <code>Group</code> <em>Subclass</em> is an extension of this <b>abstract</b> class
  * @author Mark Sattolo
- * @version 8.1.1
+ * @version 9.0.1
  */
 public abstract class Group {
     /*

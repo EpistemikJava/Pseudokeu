@@ -23,13 +23,13 @@ import mhs.pseudokeu.Loader.SavedGame;
 
 /**
  * Solve Sudoku puzzles using the Knuth 'Dancing Links' strategy <br>
- * Port to Java & modifications (c) 2009 - 2014 by Mark Sattolo <br>
+ * port to Java & ongoing modifications (c) 2009-present by Mark Sattolo <br>
  * 
- * Original C code by Xi Chen <br>
+ * Original C code by <b>Xi Chen</b> <br>
  * @see <a href="http://cgi.cse.unsw.edu.au/~xche635/dlx_sodoku">Dancing Links</a>
  * 
  * @author Mark Sattolo
- * @version 8.1.1
+ * @version 9.0.1
  */
 class Solver {
     /*

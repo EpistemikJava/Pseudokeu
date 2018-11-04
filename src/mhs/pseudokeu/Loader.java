@@ -32,7 +32,7 @@ import java.util.logging.Level;
  * Access <b>games</b> from file or jar and Store as {@link SavedGame}s
  * 
  * @author Mark Sattolo
- * @version 8.1.1
+ * @version 9.0.1
  */
 public class Loader {
     /*
@@ -112,7 +112,7 @@ public class Loader {
             return $oldVal;
 
         }// SavedGame.setValue()
-
+        
         /**
          * Get the value at a particular row and col in {@link SavedGame#values} <br>
          * 
@@ -124,22 +124,22 @@ public class Loader {
         int getValue(final int row, final int col) {
             return values[row][col];
         }
-
+        
         /** @return {@link SavedGame#length} */
         int getLength() {
             return length;
         }
-
+        
         /** @return {@link SavedGame#name} */
         String getName() {
             return name;
         }
-
+        
         /** @return {@link SavedGame#difficulty} */
         int getDifficulty() {
             return difficulty;
         }
-
+        
         /**
          * display data at submitted log {@link Level}
          * @param lev - java.util.logging.Level
@@ -194,20 +194,20 @@ public class Loader {
             System.err.println("Loader Constructor: passed a null Launcher!!??");
             System.exit(this.hashCode());
         }
-
+        
         int numGames = num;
         if( num < Loader.MIN_NUM_LOADED_GAMES ) numGames = Launcher.MAX_NUM_LOADED_GAMES;
-
+        
         gameview = frame;
         maxNumGames = numGames;
-
+        
         games = new SavedGame[NUM_DIFFICULTIES][maxNumGames];
         nLoadedGames = new int[NUM_DIFFICULTIES];
         base = gameview.grid.getLength() + 1;
-
+        
         logger = Launcher.logger;
         logger.logInit();
-
+        
         pathSep = File.separator;
     }
 
@@ -752,7 +752,8 @@ public class Loader {
 
         boolean $result = scanJar(name);
 
-        if( $result ) $result = loadScannedGame(difficulty);
+        if( $result )
+            $result = loadScannedGame(difficulty);
 
         return $result;
 
@@ -886,7 +887,7 @@ public class Loader {
     }// Loader.setFileBasename()
 
     // ===========================================================================================================
-    // D E B U G C O D E
+    //  D E B U G C O D E
     // ===========================================================================================================
 
     String myname() {
@@ -987,8 +988,15 @@ public class Loader {
     static final String[] STR_DIFF_FOLDERS = { "EASY", "MODERATE", "HARD", "PAINFUL", "DEADLY", "USER" };
 
     /** level of difficulty */
-    static final int nFAIL = -1, EASY = 0, MODERATE = EASY + 1, HARD = MODERATE + 1, PAINFUL = HARD + 1, DEADLY = PAINFUL + 1,
-                    USER = DEADLY + 1, NUM_DIFFICULTIES = USER + 1;
+    static final int 
+          nFAIL    = -1, 
+          EASY     = 0, 
+          MODERATE = EASY + 1, 
+          HARD     = MODERATE + 1, 
+          PAINFUL  = HARD + 1, 
+          DEADLY   = PAINFUL + 1,
+          USER     = DEADLY + 1, 
+          NUM_DIFFICULTIES = USER + 1;
 
     /** Reference to the enclosing {@link Launcher} object */
     private static Launcher gameview = null;

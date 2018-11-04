@@ -21,6 +21,7 @@ import java.awt.Color;
 import java.awt.Font;
 import java.awt.Graphics;
 import java.awt.Point;
+import java.awt.event.InputEvent;
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
 import java.awt.event.MouseEvent;
@@ -37,7 +38,7 @@ import mhs.pseudokeu.Loader.SavedGame;
 /**
  * The grid containing 9 {@link Col}umns, 9 {@link Row}s, and 9 {@link Zone}s, each filled with 9 {@link Square}s
  * @author Mark Sattolo
- * @version 8.1.1
+ * @version 9.0.2
  * @see JPanel
  * @see MouseListener
  * @see KeyListener
@@ -2109,7 +2110,7 @@ public class Grid extends JPanel implements MouseListener, KeyListener {
         if( (!gameview.isRunning()) || (activeSqr == null) ) return;
 
         int $code = kevt.getKeyCode();
-        int $mods = kevt.getModifiers();
+        int $mods = kevt.getModifiersEx();
         int $locn = kevt.getKeyLocation();
 
         if( showKeyStrokes ) {
@@ -2117,7 +2118,7 @@ public class Grid extends JPanel implements MouseListener, KeyListener {
                             + KeyEvent.getKeyText( $code )
                             + "'"
                             + " // Mods: '"
-                            + KeyEvent.getKeyModifiersText( $mods )
+                            + InputEvent.getModifiersExText( $mods )
                             + "'"
                             + " // Locn: "
                             + (($locn == KeyEvent.KEY_LOCATION_NUMPAD) ? "Numpad"
@@ -2164,7 +2165,7 @@ public class Grid extends JPanel implements MouseListener, KeyListener {
             return;
         }
         logger.append( "Key: '" + KeyEvent.getKeyText( kevt.getKeyCode() ) + "'" + " // Mod: '"
-                        + KeyEvent.getKeyModifiersText( kevt.getModifiers() ) + "'" );
+                        + InputEvent.getModifiersExText( kevt.getModifiersEx() ) + "'" );
         logger.send( showKeyStrokes ? Level.FINE : Level.FINER );
     }
 
