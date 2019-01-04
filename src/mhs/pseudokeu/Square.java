@@ -149,8 +149,8 @@ class Square {
 
     /**
      * Have a new {@link #value} in this {@link Square} <br>
-     * - start the <em>'Set Value Chain'</em> to update the relevant variables in this Square, its {@link Group}s, its <b>Group
-     * Squares</b>, and the <code>Groups</code> of each <b>Group Square</b> <br>
+     * - start the <em>'Set Value Chain'</em> to update the relevant variables in this Square, its {@link Group}s,
+     * its <b>Group Squares</b>, and the <code>Groups</code> of each <b>Group Square</b> <br>
      * - called by {@link Grid#activateGame} OR {@link Grid#newValue}
      * 
      * @param val - the new <var>value</var>
@@ -211,8 +211,8 @@ class Square {
 
     /**
      * A {@link Square} in one of my {@link Group}s has a new <var>value</var> <br>
-     * Must increment OR decrement {@link #nGrpSqrsWithVal} for the old and new values, then adjust {@link #conflicting} and
-     * reset {@link #possibleVals} <br>
+     * Must increment OR decrement {@link #nGrpSqrsWithVal} for the old and new values, then adjust {@link #conflicting}
+     * and reset {@link #possibleVals} <br>
      * - called by {@link Group#notifySqrsOfValChange} or {@link Zone#notifySqrsOfValChange}
      * 
      * @param oldVal - old <var>value</var> of the changed Square
@@ -275,15 +275,16 @@ class Square {
         boolean $result = false;
 
         logger.append("\t\t\t Sqr " + strGridPosn() + " : possibleVals == "
-                        + Helper.displaySetBits(possibleVals, gridLength, " ")
-                        /* + "/ " + Integer.toBinaryString(possibleVals)*/+ "/ n." + nPossibleVals);
+                      + Helper.displaySetBits(possibleVals, gridLength, " ")
+                      /* + "/ " + Integer.toBinaryString(possibleVals)*/+ "/ n." + nPossibleVals);
 
         int $val = (1 << val);
         if( ($val | possibleVals) == possibleVals ) {
             possibleVals -= $val;
             nPossibleVals--;
             logger.appendln(" -> NOW == " + Helper.displaySetBits(possibleVals, gridLength, " ")
-            /* + "/ " + Integer.toBinaryString(possibleVals)*/+ "/ n." + nPossibleVals);
+                            /* + "/ " + Integer.toBinaryString(possibleVals)*/
+                            + "/ n." + nPossibleVals);
 
             removeSqrFromGrpVal(val);
 
@@ -617,8 +618,8 @@ class Square {
                 nPossibleVals++;
             }
 
-        logger.fine("Sqr " + strGridPosn() + ": possibleVals == " + Helper.displaySetBits(possibleVals, gridLength, " ") + "/ "
-                        + Integer.toBinaryString(possibleVals) + " / n." + nPossibleVals);
+        logger.fine( "Sqr " + strGridPosn() + ": possibleVals == " + Helper.displaySetBits(possibleVals, gridLength, " ")
+                     + "/ " + Integer.toBinaryString(possibleVals) + " / n." + nPossibleVals );
 
         /* test */
         if( Launcher.DEBUG ) {

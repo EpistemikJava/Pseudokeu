@@ -53,11 +53,11 @@ public class Launcher extends JFrame {
      */
     class GameListener implements ActionListener {
         private static final String 
-              strCHANGE_DIFFICULTY_CONFIRM   = "Change Difficulty Confirmation",
-              strEND_GAME_AND_SET_DIFFICULTY = "! End this game & set a NEW level of difficulty?",
-              strEND_GAME_AND_ADD            = "! End this game & ADD a new USER game?",
-              strCLEAR_AND_SELECT            = "! Clear ALL values & Select a Game?",
-              strCLEAR_AND_LOAD              = "! Clear ALL values & Load a NEW game?";
+            strCHANGE_DIFFICULTY_CONFIRM   = "Change Difficulty Confirmation",
+            strEND_GAME_AND_SET_DIFFICULTY = "! End this game & set a NEW level of difficulty?",
+            strEND_GAME_AND_ADD            = "! End this game & ADD a new USER game?",
+            strCLEAR_AND_SELECT            = "! Clear ALL values & Select a Game?",
+            strCLEAR_AND_LOAD              = "! Clear ALL values & Load a NEW game?";
 
         /**
          * Component (button, menu, etc) that was activated
@@ -826,7 +826,7 @@ public class Launcher extends JFrame {
         private static final long serialVersionUID = -2200890974403009644L;
 
         static final String STR_TITLE = "Choose a level of difficulty",
-                        HTML_MSG = "<html><br><h1><font color=blue>Choose a level of difficulty:</font></h1></html>";
+                             HTML_MSG = "<html><br><h1><font color=blue>Choose a level of difficulty:</font></h1></html>";
 
         /** identify the source of action events */
         private Object source;
@@ -968,8 +968,8 @@ public class Launcher extends JFrame {
             }
 
             if( check ) {
-                logger.info("Current difficulty is '" + Loader.STR_DIFF_FOLDERS[difficulty] + "' & New difficulty will be '"
-                                + chosenDifficulty + "'");
+                logger.info("Current difficulty is '" + Loader.STR_DIFF_FOLDERS[difficulty] 
+                            + "' & New difficulty will be '" + chosenDifficulty + "'");
 
                 if( !chosenDifficulty.isEmpty() ) {
                     difficulty = loader.getDifficultyIndex(chosenDifficulty);
@@ -1014,8 +1014,8 @@ public class Launcher extends JFrame {
         static final String STR_TITLE = "Select the Solve Delay",
                         HTML_MSG = "<html><br><h1><font color=blue>Choose a Delay interval:</font></h1></html>";
 
-        private String[] selections = { "1 sec", "2 sec", "4 sec", "8 sec", "16 sec", "24 sec", "32 sec", "48 sec", "64 sec",
-                        "96 sec" };
+        private String[] selections = { "1 sec", "2 sec", "4 sec", "8 sec", "16 sec", "24 sec",
+                                        "32 sec", "48 sec", "64 sec", "96 sec" };
 
         /** identify the source of action events */
         private Object source;
@@ -1552,7 +1552,8 @@ public class Launcher extends JFrame {
      */
     void updateSqrsMesg(final int emp) {
         logger.fine("parameter = " + emp);
-        sqrsLabel.setText("<html><font color=red><b>" + Integer.toString(emp) + "</b></font>" + strSQUARES_TITLE + "</html>");
+        sqrsLabel.setText("<html><font color=red><b>" + Integer.toString(emp) 
+                          + "</b></font>" + strSQUARES_TITLE + "</html>");
     }
 
     /**
@@ -1599,7 +1600,8 @@ public class Launcher extends JFrame {
         pxScreenSize = java.awt.Toolkit.getDefaultToolkit().getScreenSize();
         int res = java.awt.Toolkit.getDefaultToolkit().getScreenResolution();
 
-        logger.logInit("Screen width = " + pxScreenSize.width + " & height = " + pxScreenSize.height + " & Resolution = " + res);
+        logger.logInit("Screen width = " + pxScreenSize.width + " & height = " 
+                       + pxScreenSize.height + " & Resolution = " + res);
 
         // User game starts with the smallest size
         pxSqrLength = (DEBUG ? SQUARE_SIZE_MD : SQUARE_SIZE_SM);
@@ -2107,7 +2109,7 @@ public class Launcher extends JFrame {
     }// Launcher.createLoader()
 
     /**
-     * Call {@link Loader} to load games from file or jar to {@link Loader.SavedGame}s <br>
+     * Use a SwingWorker to call {@link Loader} to load games from file or jar to {@link Loader.SavedGame}s <br>
      * - called by {@link #createLoader}
      * 
      * @see Loader#loadAllGames

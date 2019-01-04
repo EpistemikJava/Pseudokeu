@@ -20,15 +20,7 @@ package mhs.pseudokeu;
 import java.text.DateFormat;
 import java.util.Date;
 import java.util.Enumeration;
-import java.util.logging.ConsoleHandler;
-import java.util.logging.FileHandler;
-import java.util.logging.Formatter;
-import java.util.logging.Handler;
-import java.util.logging.Level;
-import java.util.logging.LogManager;
-import java.util.logging.LogRecord;
-import java.util.logging.Logger;
-import java.util.logging.XMLFormatter;
+import java.util.logging.*;
 
 /**
  * Manage logging for the package
@@ -55,13 +47,12 @@ public class LogControl {
             setLevel(DEFAULT_LEVEL);
         }
 
-        // package Logger
+        // get a Logger for this package
         myLogger = PskLogger.getNewLogger(PskLogger.myname());
 
         // Generally only want to output to file for DEBUG mode
         if( Launcher.DEBUG ) {
             setHandlers();
-
             myLogger.addHandler(xmlHandler);
             myLogger.addHandler(textHandler);
         } else // need a handler for the package logger
@@ -140,6 +131,7 @@ public class LogControl {
             }
 
             rootLogger.setLevel(currentLevel);
+            
         } catch( Exception e ) {
             System.err.println("rootLogger exception: " + e);
         }
@@ -312,8 +304,8 @@ public class LogControl {
         for( Handler h : $handlerAr ) {
             Formatter f = h.getFormatter();
             Level l = h.getLevel();
-            System.out.println("Handler " + h.getClass().getName() + " has Formatter '" + f.getClass().getName()
-                               + "' & Level = " + l.getName());
+            System.out.println( "Handler " + h.getClass().getName() + " has Formatter '" + f.getClass().getName()
+                                + "' & Level = " + l.getName() );
         }
     }// LogControl.loggerInfo()
 
@@ -331,8 +323,10 @@ public class LogControl {
     static final Level DEFAULT_LEVEL = Level.WARNING;
 
     /** default Log name parameter */
-    static final String LOG_SUBFOLDER = "logs/", LOG_ROLLOVER_SPEC = "_%u-%g", XML_LOGFILE_TYPE = ".xml",
-                    TEXT_LOGFILE_TYPE = ".log";
+    static final String     LOG_SUBFOLDER = "logs/",
+                        LOG_ROLLOVER_SPEC = "_%u-%g", 
+                         XML_LOGFILE_TYPE = ".xml",
+                        TEXT_LOGFILE_TYPE = ".log";
 
     /** @see PskLogger */
     private static PskLogger myLogger;
@@ -405,7 +399,6 @@ class PskLogger extends Logger {
     protected static synchronized PskLogger getNewLogger(final String name) {
         PskLogger $logger = new PskLogger(name, null);
         LogManager.getLogManager().addLogger($logger);
-
         return $logger;
 
     }// PskLogger.getNewLogger()
@@ -421,7 +414,6 @@ class PskLogger extends Logger {
         }
 
         LogRecord $logRec = getRecord(LogControl.INIT_LEVEL, "<INIT> " + msg);
-
         sendRecord($logRec);
 
     }// PskLogger.logInit(String)
@@ -441,7 +433,8 @@ class PskLogger extends Logger {
      * @param level - {@link Level} to log at
      */
     protected void send(final Level level) {
-        if( buffer.length() == 0 ) return;
+        if( buffer.length() == 0 )
+          return;
 
         getCallerClassAndMethodName();
         LogRecord $logRec = getRecord(level, buffer.toString());
@@ -518,7 +511,6 @@ class PskLogger extends Logger {
         LogRecord $logRec = new LogRecord((level == null ? LogControl.DEFAULT_LEVEL : level), msg);
         $logRec.setSourceClassName(callclass);
         $logRec.setSourceMethodName(callmethod);
-
         return $logRec;
 
     }// PskLogger.getRecord()
@@ -532,7 +524,6 @@ class PskLogger extends Logger {
     private synchronized void sendRecord(LogRecord rec) {
         callclass = null;
         callmethod = null;
-
         super.log(rec);
 
     }// PskLogger.sendRecord()
@@ -596,8 +587,8 @@ class PskFormatter extends Formatter {
      */
     @Override
     public String format(LogRecord rec) {
-        return(rec.getLevel() + REC + (++count) + NLN + rec.getSourceClassName() + SPC + rec.getSourceMethodName() + NLN
-                        + rec.getMessage() + NLN + NLN);
+        return( rec.getLevel() + REC + (++count) + NLN + rec.getSourceClassName() + SPC 
+                + rec.getSourceMethodName() + NLN + rec.getMessage() + NLN + NLN );
     }
 
     /**
@@ -620,7 +611,11 @@ class PskFormatter extends Formatter {
     private int count;
 
     /** useful String constant */
-    static final String SPC = " ", NLN = "\n", DIV = "=================================================================",
-                    REC = ": Pseudokeu record #", HEAD = "Pseudokeu START" + NLN, TAIL = "Pseudokeu END" + NLN;
+    static final String SPC = " ", 
+                        NLN = "\n", 
+                        DIV = "=================================================================",
+                        REC = ": Pseudokeu record #", 
+                       HEAD = "Pseudokeu START" + NLN, 
+                       TAIL = "Pseudokeu END" + NLN;
 
 }// class PskFormatter

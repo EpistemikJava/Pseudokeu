@@ -22,8 +22,8 @@ import java.util.Arrays;
 import java.util.logging.Level;
 
 /**
- * The Grid sub-sections, either {@link Row}s, {@link Col}s, or {@link Zone}s, each composed of an array of {@link Square}s of
- * size {@link #gridLength}<br>
+ * The Grid sub-sections, either {@link Row}s, {@link Col}s, or {@link Zone}s, each composed of a 1-D array of {@link Square}s
+ * of size {@link #gridLength}<br>
  * Each implemented <code>Group</code> <em>Subclass</em> is an extension of this <b>abstract</b> class
  * @author Mark Sattolo
  * @version 9.0.1
@@ -161,7 +161,6 @@ public abstract class Group {
 
         for( Square s : mySqrs ) {
             logger.finer( "Sqr " + (s == $activeSqr ? "=" : "!") + "= activeSqr" + "; type = " + s.getType() );
-
             // EXCLUDE the active Square
             if( s != $activeSqr )
             /* continue the 'Set Value Chain' */
@@ -351,7 +350,7 @@ public abstract class Group {
                 // make sure this index is in the array
                 if( (sqrsCanBeVal[val] | $bitIndex) == sqrsCanBeVal[val] ) {
                     logger.append( "\t\t\t\t $ " + myPosn() + ": REMOVE mySqrs[" + i + "] from val[" + val + "] == "
-                                    + Helper.displaySetBits( sqrsCanBeVal[val], gridLength, "" ) );
+                                   + Helper.displaySetBits( sqrsCanBeVal[val], gridLength, "" ) );
 
                     $result = true;
 
@@ -359,7 +358,7 @@ public abstract class Group {
                     nSqrsCanBeVal[val]--;
 
                     logger.appendln( " -> NOW == " + Helper.displaySetBits( sqrsCanBeVal[val], gridLength, "" ) + " / n."
-                                    + nSqrsCanBeVal[val] );
+                                     + nSqrsCanBeVal[val] );
                 }
             }
         return $result;
@@ -489,9 +488,9 @@ public abstract class Group {
                                     $res2 = $res1 | mySqrs[k].getPossibleVals();
                                     if( $res2 == $res1 ) {
                                         logger.appendln( "\n\t nOpen == " + nOpen + " / i == " + i + " ; j == " + j
-                                                        + " ; k == " + k + " ; res1 == "
-                                                        + Helper.displaySetBits( $res1, gridLength, "" ) + " ; res2 == "
-                                                        + Helper.displaySetBits( $res2, gridLength, "" ) );
+                                                         + " ; k == " + k + " ; res1 == "
+                                                         + Helper.displaySetBits( $res1, gridLength, "" ) + " ; res2 == "
+                                                         + Helper.displaySetBits( $res2, gridLength, "" ) );
 
                                         blockSqrs[0] = i;
                                         blockSqrs[1] = j;
@@ -538,8 +537,8 @@ public abstract class Group {
                             $res2 = $res1 | sqrsCanBeVal[x];
                             if( $res2 == $res1 ) {
                                 logger.appendln( "\n\t nOpen == " + nOpen + " / v == " + v + " ; w == " + w + " ; x == " + x
-                                                + " ; res1 == " + Helper.displaySetBits( $res1, gridLength, "" )
-                                                + " ; res2 == " + Helper.displaySetBits( $res2, gridLength, "" ) );
+                                                 + " ; res1 == " + Helper.displaySetBits( $res1, gridLength, "" )
+                                                 + " ; res2 == " + Helper.displaySetBits( $res2, gridLength, "" ) );
 
                                 blockVals[0] = v;
                                 blockVals[1] = w;
@@ -594,10 +593,10 @@ public abstract class Group {
                                             $res3 = $res2 | mySqrs[m].getPossibleVals();
                                             if( $res3 == $res2 ) {
                                                 logger.appendln( "\n\t nOpen == " + nOpen + " / i == " + i + " ; j == " + j
-                                                                + " ; k == " + k + " ; m == " + m + " ; res1 == "
-                                                                + Helper.displaySetBits( $res1, gridLength, "" )
-                                                                + " ; res2 == " + Helper.displaySetBits( $res2, gridLength, "" )
-                                                                + " ; res3 == " + Helper.displaySetBits( $res3, gridLength, "" ) );
+                                                                 + " ; k == " + k + " ; m == " + m + " ; res1 == "
+                                                                 + Helper.displaySetBits( $res1, gridLength, "" )
+                                                 + " ; res2 == " + Helper.displaySetBits( $res2, gridLength, "" )
+                                                 + " ; res3 == " + Helper.displaySetBits( $res3, gridLength, "" ) );
                                                 blockSqrs[0] = i;
                                                 blockSqrs[1] = j;
                                                 blockSqrs[2] = k;
@@ -653,10 +652,10 @@ public abstract class Group {
                                     $res3 = $res2 | sqrsCanBeVal[y];
                                     if( $res3 == $res2 ) {
                                         logger.appendln( "\n\t nOpen == " + nOpen + " / v == " + v + " ; w == " + w
-                                                        + " ; x == " + x + " ; y == " + y + " ; res1 == "
-                                                        + Helper.displaySetBits( $res1, gridLength, "" ) + " ; res2 == "
-                                                        + Helper.displaySetBits( $res2, gridLength, "" ) + " ; res3 == "
-                                                        + Helper.displaySetBits( $res3, gridLength, "" ) );
+                                                         + " ; x == " + x + " ; y == " + y + " ; res1 == "
+                                                         + Helper.displaySetBits( $res1, gridLength, "" ) + " ; res2 == "
+                                                         + Helper.displaySetBits( $res2, gridLength, "" ) + " ; res3 == "
+                                                         + Helper.displaySetBits( $res3, gridLength, "" ) );
                                         blockVals[0] = v;
                                         blockVals[1] = w;
                                         blockVals[2] = x;
@@ -702,7 +701,7 @@ public abstract class Group {
                     for( v = 0; v < maxBlockLength; v++ )
                         if( (blockVals[v] > 0) && (!mySqrs[i].getExcludeVal( blockVals[v] )) ) {
                             logger.appendln( "\t\t mySqrs[" + i + "].removePossibleVal( blockVals[" + v + "] == "
-                                            + blockVals[v] + " )" );
+                                             + blockVals[v] + " )" );
                             $interim = mySqrs[i].removePossibleVal( blockVals[v] );
                             if( !$result ) $result = $interim;
                         }
@@ -714,7 +713,7 @@ public abstract class Group {
                 if( (i == blockSqrs[0]) || (i == blockSqrs[1]) || (i == blockSqrs[2]) || (i == blockSqrs[3]) )
                     for( v = 1; v <= gridLength; v++ )
                         if( (v != blockVals[0]) && (v != blockVals[1]) && (v != blockVals[2]) && (v != blockVals[3])
-                                        && (!mySqrs[i].getExcludeVal( v )) ) {
+                                && (!mySqrs[i].getExcludeVal( v )) ) {
                             logger.appendln( "\t\t mySqrs[" + i + "].removePossibleVal( " + v + " )" );
                             $interim = mySqrs[i].removePossibleVal( v );
                             if( !$result ) $result = $interim;
@@ -742,7 +741,7 @@ public abstract class Group {
     }
 
     /**
-     * Process Rectad value <br>
+     * Process Hexad value <br>
      * - called by {@link Grid#findHexad}
      * @param val - value
      * @param sqr1 - 1st Square to exclude
@@ -845,7 +844,7 @@ public abstract class Group {
         // logger.append( i + "|" + Helper.displaySetBits(gridLength, sqrsCanBeVal[i], "") + " " );
 
         if( !brief ) {
-            logger.append( "\n Block values " + Arrays.toString( blockVals ) + "& Block Sqrs " + Arrays.toString( blockSqrs ) );
+            logger.append("\n Block values " + Arrays.toString( blockVals ) + "& Block Sqrs " + Arrays.toString( blockSqrs ));
 
             logger.append( "\n       nSqrsWithVal (1-" + gridLength + "): " );
             for( i = 1; i <= gridLength; i++ )

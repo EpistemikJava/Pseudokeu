@@ -678,7 +678,7 @@ public class Grid extends JPanel implements MouseListener, KeyListener {
         setActiveSqr( undoVector.elementAt( undoPtr ).getRow(), undoVector.elementAt( undoPtr ).getCol() );
 
         // set this Square to the New value
-        getActiveSqr().newValue( undoVector.elementAt( undoPtr ).getNewVal(), undoVector.elementAt( undoPtr ).getTemp( false ) );
+        getActiveSqr().newValue(undoVector.elementAt( undoPtr ).getNewVal(), undoVector.elementAt( undoPtr ).getTemp(false));
 
         // increment undoPtr and check Undo button
         if( ++undoPtr > 0 ) gameview.enableUndo( true );
@@ -1192,7 +1192,7 @@ public class Grid extends JPanel implements MouseListener, KeyListener {
         }
 
         savedSolution = loader.new SavedGame( activeGame.getLength(), "SOLUTION_" + activeGame.getName(),
-                        activeGame.getDifficulty() );
+                                              activeGame.getDifficulty() );
 
         if( savedSolution == null ) {
             logger.warning( "Solution SavedGame not constructed!" );
@@ -1208,8 +1208,8 @@ public class Grid extends JPanel implements MouseListener, KeyListener {
     }
 
     /**
-     * Call {@link Loader} to load games from file or jar to {@link Loader.SavedGame}s <br>
-     * - called by {@link #activateGame}
+     * Use a SwingWorker to call {@link Solver} to solve the current game and save in a {@link Loader.SavedGame} <br>
+     * - called by {@link #getSolutionGame}
      * @see Solver#getSolution
      * @see #solveWorker
      * @see #savedSolnReady
@@ -1234,8 +1234,8 @@ public class Grid extends JPanel implements MouseListener, KeyListener {
     }
 
     /**
-     * Find a Group that has a missing value which can ONLY go in 1 of its open Squares, as the other Squares in this Group have
-     * that value in a Group Square, then set this Square to that value [aka "Hidden Single"]<br>
+     * Find a Group that has a missing value which can ONLY go in 1 of its open Squares, as the other Squares in this Group
+     * have that value in a Group Square, then set this Square to that value [aka "Hidden Single"]<br>
      * - called by {@link #solveOneSqr}
      * @return success or failure
      * @see Group#findSingleSqrForVal
@@ -1276,8 +1276,8 @@ public class Grid extends JPanel implements MouseListener, KeyListener {
     }
 
     /**
-     * Find a value that is already in (gridLength - 1) Grid locations, so there is only 1 possible Square remaining which can
-     * have the last token of that value <br>
+     * Find a value that is already in (gridLength - 1) Grid locations, so there is only 1 possible Square remaining 
+     * which can have the last token of that value <br>
      * - called by {@link #solveOneSqr}
      * @return success or failure
      */
@@ -1306,7 +1306,7 @@ public class Grid extends JPanel implements MouseListener, KeyListener {
     }
 
     /**
-     * Find any locked values [aka "Locked Candidates"] in Groups and then re-check for any Solvable Squares <br>
+     * Find <b>all</b> locked values [aka "Locked Candidates"] in Groups and then re-check for any Solvable Squares <br>
      * - called by {@link #solveOneSqr} OR {@link Launcher#setGridDebugKeyMap} Ctrl-V keystroke
      * 
      * @return success or failure
@@ -1327,7 +1327,7 @@ public class Grid extends JPanel implements MouseListener, KeyListener {
     }
 
     /**
-     * Find any Square or Group Pairs and then re-check for any Solvable Squares <br>
+     * Find <b>all</b> Square or Group Pairs and then re-check for any Solvable Squares <br>
      * - called by {@link #solveOneSqr}
      * @return success or failure
      */
@@ -1349,7 +1349,7 @@ public class Grid extends JPanel implements MouseListener, KeyListener {
     }
 
     /**
-     * Find any Square or Group Triples and then re-check for any Solvable Squares <br>
+     * Find <b>all</b> Square or Group Triples and then re-check for any Solvable Squares <br>
      * - called by {@link #solveOneSqr}
      * @return success or failure
      */
@@ -1371,7 +1371,7 @@ public class Grid extends JPanel implements MouseListener, KeyListener {
     }
 
     /**
-     * Find any Square or Group Quads and then re-check for any Solvable Squares <br>
+     * Find <b>all</b> Square or Group Quads and then re-check for any Solvable Squares <br>
      * - called by {@link #solveOneSqr}
      * @return success or failure
      */
@@ -1396,7 +1396,7 @@ public class Grid extends JPanel implements MouseListener, KeyListener {
      * Two rows OR cols each have only 2 Sqrs where a certain value can go, and these 2 Sqrs are also in matching cols/rows,
      * thus can REMOVE that value as a possibility from ALL other open Sqrs in the matching cols/rows [aka "X-wing"]<br>
      * 
-     * <b>Find</b> any Rectads in the Grid and process the values.<br>
+     * Find <b>all</b> Rectads in the Grid and process the values.<br>
      * - called by {@link #solveOneSqr}
      * 
      * @return success or failure
@@ -1451,7 +1451,7 @@ public class Grid extends JPanel implements MouseListener, KeyListener {
      * A Group contains 2 Sqrs with Pairs in the x,y + y,z pattern, and in a separate Group of one of these Sqrs is a Sqr with
      * an x,z Pair, thus can REMOVE the x possibility from any open Sqr at the intersection row/cols of the x,y and x,z Sqrs
      * [aka "XY-wing"]<br>
-     * <b>Find</b> an Elad in the Grid and process the value.<br>
+     * Find <b>one</b> Elad in the Grid and process the value.<br>
      * - called by {@link #solveOneSqr}
      * @return success or failure
      */
@@ -1554,9 +1554,9 @@ public class Grid extends JPanel implements MouseListener, KeyListener {
     }
 
     /**
-     * Three rows OR cols each have a Pair or Triple for a particular value, and these overlap in the SAME three cols/rows, thus
-     * can REMOVE ALL instances of this value in the other open Sqrs of the overlapping cols/rows [aka "Swordfish"]<br>
-     * <b>Find</b> a Hexad in the Grid and process the value.<br>
+     * Three rows OR cols each have a Pair or Triple for a particular value, and these overlap in the SAME three cols/rows,
+     * thus can REMOVE ALL instances of this value in the other open Sqrs of the overlapping cols/rows [aka "Swordfish"]<br>
+     * Find <b>one</b> Hexad in the Grid and process the value.<br>
      * - called by {@link #solveOneSqr}
      * @return success or failure
      */
@@ -1641,10 +1641,10 @@ public class Grid extends JPanel implements MouseListener, KeyListener {
     }
 
     /**
-     * CANNOT have a "rectangle" in two Groups where each corner has the same two possible values, as the placement of the two
-     * different values would be equally likely, and thus the solution to that game would NOT be unique. [aka
-     * "Unique Rectangles" requirement]<br>
-     * <b>Find</b> any Tetrads [aka "Deadly Rectangles"] in the Grid and process the values <br>
+     * CANNOT have a "rectangle" in two Groups where each corner has the same two possible values, as the placement
+     * of the two different values would be equally likely, and thus the solution to that game would NOT be unique.
+     * [aka "Unique Rectangles" requirement]<br>
+     * Find <b>all</b> Tetrads [aka "Deadly Rectangles"] in the Grid and process the values <br>
      * - called by {@link #solveOneSqr}
      * @return success or failure
      */
@@ -1719,7 +1719,7 @@ public class Grid extends JPanel implements MouseListener, KeyListener {
     }
 
     /**
-     * Find any Color Chain values and then re-check for any Solvable Squares <br>
+     * Find <b>all</b> Color Chain values and then re-check for any Solvable Squares <br>
      * = TF chaining, reductio ad absurdum <br>
      * - called by {@link #solveOneSqr}
      * @return success or failure
@@ -1877,7 +1877,7 @@ public class Grid extends JPanel implements MouseListener, KeyListener {
     }
 
     /**
-     * Reset ALL mutable Color Chain fields to default values <br>
+     * Reset <b>ALL</b> mutable Color Chain fields to default values <br>
      * - called by {@link #findColorChainVal}
      * @param doSqrs - reset individual {@link Square}s too
      * @see #colorChain
@@ -2122,7 +2122,7 @@ public class Grid extends JPanel implements MouseListener, KeyListener {
                             + "'"
                             + " // Locn: "
                             + (($locn == KeyEvent.KEY_LOCATION_NUMPAD) ? "Numpad"
-                                            : ($locn == KeyEvent.KEY_LOCATION_STANDARD ? "Standard" : "Other(" + $locn + ")")) );
+                               : ($locn == KeyEvent.KEY_LOCATION_STANDARD ? "Standard" : "Other(" + $locn + ")")) );
         }
 
         // arrow keys move the active Square
@@ -2165,7 +2165,7 @@ public class Grid extends JPanel implements MouseListener, KeyListener {
             return;
         }
         logger.append( "Key: '" + KeyEvent.getKeyText( kevt.getKeyCode() ) + "'" + " // Mod: '"
-                        + InputEvent.getModifiersExText( kevt.getModifiersEx() ) + "'" );
+                       + InputEvent.getModifiersExText( kevt.getModifiersEx() ) + "'" );
         logger.send( showKeyStrokes ? Level.FINE : Level.FINER );
     }
 
@@ -2181,7 +2181,7 @@ public class Grid extends JPanel implements MouseListener, KeyListener {
             return;
         }
 
-        if( (!gameview.isRunning()) || (activeSqr == null) || kevt.isControlDown() ) return;                                            // ignore Control events
+        if( (!gameview.isRunning()) || (activeSqr == null) || kevt.isControlDown() ) return; // ignore Control events
 
         // this event is from an Alt+Numpad keyPress, which we want to ignore here
         // as it was already handled in Grid.keyPressed()
@@ -2191,8 +2191,8 @@ public class Grid extends JPanel implements MouseListener, KeyListener {
             logger.appendln( "\t\t DE-ACTIVATE TypeLock" );
             return;
         }
-        logger.log( showKeyStrokes ? Level.SEVERE : Level.FINE, "tempMode NO" + (tempMode ? "W" : "T") + " Active: Key '"
-                        + kevt.getKeyChar() + "'" );
+        logger.log( showKeyStrokes ? Level.SEVERE : Level.FINE, "tempMode NO" + (tempMode ? "W" : "T") 
+                    + " Active: Key '" + kevt.getKeyChar() + "'" );
         processInput( kevt );
     }
 
@@ -2688,14 +2688,14 @@ public class Grid extends JPanel implements MouseListener, KeyListener {
     private int undoPtr;
 
     /**
-     * Separate thread for getting {@link Loader.SavedGame}s from {@link Loader}
+     * Separate thread for calling {@link Solver} to solve a game and store result in a {@link Loader.SavedGame} 
      * @see SwingWorker
      * @see #createSolveWorker
      */
     private SwingWorker<Long, Void> solveWorker;
 
     /**
-     * Have Games finished loading?
+     * Have we finished finding and saving the solved game?
      * @see SwingWorker#isDone
      * @see #solveWorkerDone
      */
